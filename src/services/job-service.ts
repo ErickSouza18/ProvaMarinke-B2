@@ -68,7 +68,6 @@ export class JobService {
         }
     }
 
-     // Novo método para listar Jobs não pagos integralmente
      public async getUnpaidJobs(contractId: number): Promise<Job[]> {
         try {
             return await this.jobRepository.findAll({

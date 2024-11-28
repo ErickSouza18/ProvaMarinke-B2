@@ -2,7 +2,6 @@ import { Contract, ContractCreationAttributes } from "../models/contract-models.
 
 export class ContractRepository {
 
-    // Criar contrato
     public async create(data: ContractCreationAttributes): Promise<Contract> {
         try {
             const contract = await Contract.create(data);
@@ -12,18 +11,14 @@ export class ContractRepository {
         }
     }
 
-    // Encontrar todos os contratos
 public async findAll(options?: { where?: { clientId?: number }; include?: { model: any; as: string }[] }): Promise<Contract[]> {
     try {
-        // Usa as opções fornecidas ou um objeto vazio
         return await Contract.findAll(options || {});
     } catch (error) {
         throw new Error(`Impossível encontrar contratos: ${(error as Error).message}`);
     }
 }
 
-
-    // Encontrar contrato por ID
     public async findById(id: number): Promise<Contract | null> {
         try {
             return await Contract.findByPk(id);
@@ -32,7 +27,6 @@ public async findAll(options?: { where?: { clientId?: number }; include?: { mode
         }
     }
 
-    // Atualizar contrato por ID
     public async update(id: number, data: Partial<ContractCreationAttributes>): Promise<Contract | null> {
         try {
             const contract = await Contract.findByPk(id);
@@ -46,7 +40,6 @@ public async findAll(options?: { where?: { clientId?: number }; include?: { mode
         }
     }
 
-    // Excluir contrato por ID
     public async delete(id: number): Promise<void> {
         try {
             const result = await Contract.destroy({

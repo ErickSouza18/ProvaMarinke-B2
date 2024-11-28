@@ -15,7 +15,6 @@ import { initializeContract } from "./models/contract-models.js";
 import { initializeDeposit } from "./models/deposit-models.js";
 import { initializePayment } from "./models/Payment-models.js";
 
-// Importando modelos
 import { Contratante } from "./models/contratante-models.js";
 import { Profile } from "./models/profile-models.js";
 import { Job } from "./models/job-models.js";
@@ -31,7 +30,6 @@ app.get("/", (req, res) => {
     res.status(200).send("Leonardo Node API - está usando ts");
 });
 
-// Definindo as rotas
 app.use("/contratante", contratanteRoutes);
 app.use("/profile", profileRoutes);
 app.use("/contract", contractRoutes);
@@ -52,7 +50,6 @@ app.use("/database", DatabaseSeederRoutes);
         initializePayment(sequelize);
         initializeContratante(sequelize);
 
-        // Relacionamentos entre os modelos
         Profile.hasMany(Contract, { foreignKey: "clientId", as: "clientContracts" });
         Profile.hasMany(Contract, { foreignKey: "contractorId", as: "contractorContracts" });
         Contract.belongsTo(Profile, { foreignKey: "clientId", as: "client" });

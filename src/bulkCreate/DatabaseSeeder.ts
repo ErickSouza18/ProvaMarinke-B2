@@ -6,7 +6,6 @@ import { Payment } from "../models/Payment-models.js";
 
 export class DatabaseSeeder {
 
-    // Método para popular a tabela Profile
     public async createProfiles(): Promise<void> {
         const profiles = [
             { "firstName": "Alice", "lastName": "Silva", "profession": "Engenheira", "balance": 5000, "type": "client" },
@@ -24,7 +23,6 @@ export class DatabaseSeeder {
         await Profile.bulkCreate(profiles);
     }
 
-    // Método para popular a tabela Contract
     public async createContracts(): Promise<void> {
         const contracts = [
             { "terms": "Consultoria", "clientId": 1, "contractorId": 2, "operationDate": new Date("2024-11-01"), "status": "ativo" },
@@ -37,7 +35,6 @@ export class DatabaseSeeder {
         await Contract.bulkCreate(contracts);
     }
 
-    // Método para popular a tabela Job
     public async createJobs(): Promise<void> {
         const jobs = [
             { "contractId": 1, "description": "Revisão de Arquitetura", "operationDate": new Date("2024-11-02"), "paymentDate": null, "price": 2000, "paid": false },
@@ -50,9 +47,6 @@ export class DatabaseSeeder {
         await Job.bulkCreate(jobs);
     }
     
-    
-
-    // Método para popular a tabela Deposit
     public async createDeposits(): Promise<void> {
         const deposits = [
             { "clientId": 1, "operationDate": new Date("2024-11-01"), "depositValue": 500 },
@@ -65,7 +59,6 @@ export class DatabaseSeeder {
         await Deposit.bulkCreate(deposits);
     }
 
-    // Método para popular a tabela Payment
     public async createPayments(): Promise<void> {
         const payments = [
             { "jobId": 1, "operationDate": new Date("2024-11-05"), "paymentValue": 2000 },

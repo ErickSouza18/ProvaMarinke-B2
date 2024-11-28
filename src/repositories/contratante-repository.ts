@@ -2,7 +2,6 @@ import { Contratante, ContratanteCreationAttributes } from "../models/contratant
 
 export class ContratanteRepository {
 
-    //criar contratante
     public async create(data: ContratanteCreationAttributes): Promise<Contratante> {
         try {
             const contratante = await Contratante.create(data);
@@ -12,8 +11,6 @@ export class ContratanteRepository {
         }
     }
     
-
-    //encontrar todos contratantes
     public async findAll(): Promise<Contratante[]> {
         try {
             return await Contratante.findAll();
@@ -22,7 +19,6 @@ export class ContratanteRepository {
         }
     }
 
-    //encontrar contratante por id 
     public async findById(id: number): Promise<Contratante | null> {
         try {
             return await Contratante.findByPk(id);
@@ -31,7 +27,6 @@ export class ContratanteRepository {
         }
     }
 
-    // Atualizar contratante por ID
     public async update(id: number, data: Partial<ContratanteCreationAttributes>): Promise<Contratante | null> {
         try {
             const contratante = await Contratante.findByPk(id);
@@ -45,7 +40,6 @@ export class ContratanteRepository {
         }
     }
 
-    // Excluir contratante por ID
     public async delete(id: number): Promise<void> {
         try {
             const result = await Contratante.destroy({
