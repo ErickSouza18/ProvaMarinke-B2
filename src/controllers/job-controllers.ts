@@ -13,7 +13,7 @@ export class JobController {
             const newJob = await this.jobService.createJob(req.body);
             res.status(201).json(newJob);
         } catch (error) {
-            res.status(500).json({ message: "Failed to create job", error: (error as Error).message });
+            res.status(500).json({ message: "Falha ao criar job", error: (error as Error).message });
         }
     }
 
@@ -22,7 +22,7 @@ export class JobController {
             const jobs = await this.jobService.getAllJobs();
             res.status(200).json(jobs);
         } catch (error) {
-            res.status(500).json({ message: "Failed to retrieve jobs", error: (error as Error).message });
+            res.status(500).json({ message: "Falha ao chamar jobs", error: (error as Error).message });
         }
     }
 
@@ -32,10 +32,10 @@ export class JobController {
             if (job) {
                 res.status(200).json(job);
             } else {
-                res.status(404).json({ message: "Job not found" });
+                res.status(404).json({ message: "Job não encontrado" });
             }
         } catch (error) {
-            res.status(500).json({ message: "Failed to retrieve job", error: (error as Error).message });
+            res.status(500).json({ message: "Falha ao chamar job", error: (error as Error).message });
         }
     }
 
@@ -45,10 +45,10 @@ export class JobController {
             if (updatedJob) {
                 res.status(200).json(updatedJob);
             } else {
-                res.status(404).json({ message: "Job not found" });
+                res.status(404).json({ message: "Job não encontrado" });
             }
         } catch (error) {
-            res.status(500).json({ message: "Failed to update job", error: (error as Error).message });
+            res.status(500).json({ message: "Falha em atualizar job", error: (error as Error).message });
         }
     }
 
@@ -57,18 +57,20 @@ export class JobController {
             await this.jobService.deleteJob(Number(req.params.id));
             res.status(204).send();
         } catch (error) {
-            res.status(500).json({ message: "Failed to delete job", error: (error as Error).message });
+            res.status(500).json({ message: "Falha ao deletar job", error: (error as Error).message });
         }
     }
 
-    // Novo método para listar Jobs não pagos integralmente
     async getUnpaidJobs(req: Request, res: Response) {
         try {
             const contractId = Number(req.params.contractId);
             const unpaidJobs = await this.jobService.getUnpaidJobs(contractId);
             res.status(200).json(unpaidJobs);
         } catch (error) {
-            res.status(500).json({ message: "Falha ao recuperar os jobs não pagos", error: (error as Error).message });
+            res.status(500).json({ 
+                message: "Falha ao recuperar jobs não pagos integralmente", 
+                error: (error as Error).message
+            });
         }
     }
 }

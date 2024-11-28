@@ -13,7 +13,7 @@ export class ProfileController {
             const newProfile = await this.profileService.createProfile(req.body);
             res.status(201).json(newProfile);
         } catch (error) {
-            res.status(500).json({ message: "Failed to create profile", error: (error as Error).message });
+            res.status(500).json({ message: "Falha ao criar perfil", error: (error as Error).message });
         }
     }
 
@@ -22,7 +22,7 @@ export class ProfileController {
             const profiles = await this.profileService.getAllProfiles();
             res.status(200).json(profiles);
         } catch (error) {
-            res.status(500).json({ message: "Failed to retrieve profiles", error: (error as Error).message });
+            res.status(500).json({ message: "Falha ao recuprar perfil", error: (error as Error).message });
         }
     }
 
@@ -32,10 +32,10 @@ export class ProfileController {
             if (profile) {
                 res.status(200).json(profile);
             } else {
-                res.status(404).json({ message: "Profile not found" });
+                res.status(404).json({ message: "Perfil não encontrado" });
             }
         } catch (error) {
-            res.status(500).json({ message: "Failed to retrieve profile", error: (error as Error).message });
+            res.status(500).json({ message: "Falha ao recuperar perfil", error: (error as Error).message });
         }
     }
 
@@ -45,10 +45,10 @@ export class ProfileController {
             if (updatedProfile) {
                 res.status(200).json(updatedProfile);
             } else {
-                res.status(404).json({ message: "Profile not found" });
+                res.status(404).json({ message: "Perfil não encontrado" });
             }
         } catch (error) {
-            res.status(500).json({ message: "Failed to update profile", error: (error as Error).message });
+            res.status(500).json({ message: "Falha ao atualizar perfil", error: (error as Error).message });
         }
     }
 
@@ -57,7 +57,7 @@ export class ProfileController {
             await this.profileService.deleteProfile(Number(req.params.id));
             res.status(204).send();
         } catch (error) {
-            res.status(500).json({ message: "Failed to delete profile", error: (error as Error).message });
+            res.status(500).json({ message: "Falha ao deletar perfil", error: (error as Error).message });
         }
     }
 }

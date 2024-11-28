@@ -96,7 +96,6 @@ export class ContratanteController {
                 return res.status(404).json({ message: `Contratante com ID ${id} não encontrado.` });
             }
 
-            // Removendo os campos indesejados
             const { createdAt, updatedAt, ...result } = contratante.toJSON();
 
             return res.status(200).json(result);

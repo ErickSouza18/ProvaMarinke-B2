@@ -70,4 +70,7 @@
                 throw new Error(`Impossível encontrar contratante pelo ID ${id}: ${(error as Error).message}`);
             }
         }
+
+
+
     }

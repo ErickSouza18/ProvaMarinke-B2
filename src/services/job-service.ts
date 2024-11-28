@@ -1,5 +1,8 @@
 import { Job, JobCreationAttributes } from "../models/job-models.js";
 import { JobRepository } from "../repositories/job-repository.js";
+import { Payment } from "../models/Payment-models.js"
+import { Op } from "sequelize";
+
 
 export class JobService {
     private jobRepository: JobRepository;
@@ -70,15 +73,10 @@ export class JobService {
 
      public async getUnpaidJobs(contractId: number): Promise<Job[]> {
         try {
-            return await this.jobRepository.findAll({
-                where: { contractId, paid: false },
-                include: [{ model: contractId, as: "contract" }]
-            });
+            const unpaidJobs = await this.jobRepository.findAllUnpaidJobsByContract(contractId);
+            return unpaidJobs;
         } catch (error) {
-            if (error instanceof Error) {
-                throw new Error(`Failed to retrieve unpaid jobs for contract ID ${contractId}: ${error.message}`);
-            }
-            throw new Error("Unknown error occurred.");
+            throw new Error(`Falha ao recuperar jobs não pagos para o contrato ${contractId}: ${error}`);
         }
     }
 }

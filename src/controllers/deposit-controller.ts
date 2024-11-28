@@ -6,6 +6,8 @@ export class DepositController {
 
     constructor() {
         this.depositService = new DepositService();
+
+        this.makeDeposit = this.makeDeposit.bind(this);
     }
 
     async createDeposit(req: Request, res: Response) {
@@ -61,15 +63,22 @@ export class DepositController {
         }
     }
 
-     // Novo método para realizar depósito
      async makeDeposit(req: Request, res: Response) {
         try {
             const profileId = Number(req.params.profileId);
-            const amount = Number(req.body.amount);
-            const deposit = await this.depositService.makeDeposit(profileId, amount);
-            res.status(201).json(deposit);
+            const { depositValue } = req.body;
+
+            if (!depositValue || depositValue <= 0) {
+                return res.status(400).json({ message: "O valor do depósito deve ser maior que zero." });
+            }
+
+            const result = await this.depositService.makeDeposit(profileId, depositValue);
+            res.status(201).json(result);
         } catch (error) {
-            res.status(500).json({ message: "falha ao fazer um deposito", error: (error as Error).message });
+            res.status(500).json({
+                message: "falha ao fazer um deposito",
+                error: (error as Error).message,
+            });
         }
     }
 }

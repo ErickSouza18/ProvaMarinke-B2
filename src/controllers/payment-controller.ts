@@ -13,7 +13,7 @@ export class PaymentController {
             const newPayment = await this.paymentService.createPayment(req.body);
             res.status(201).json(newPayment);
         } catch (error) {
-            res.status(500).json({ message: "Failed to create payment", error: (error as Error).message });
+            res.status(500).json({ message: "Falha ao criar pagamento", error: (error as Error).message });
         }
     }
 
@@ -22,7 +22,7 @@ export class PaymentController {
             const payments = await this.paymentService.getAllPayments();
             res.status(200).json(payments);
         } catch (error) {
-            res.status(500).json({ message: "Failed to retrieve payments", error: (error as Error).message });
+            res.status(500).json({ message: "Falha ao recuperar pagamentos", error: (error as Error).message });
         }
     }
 
@@ -32,10 +32,10 @@ export class PaymentController {
             if (payment) {
                 res.status(200).json(payment);
             } else {
-                res.status(404).json({ message: "Payment not found" });
+                res.status(404).json({ message: "Pagamento não econtrado" });
             }
         } catch (error) {
-            res.status(500).json({ message: "Failed to retrieve payment", error: (error as Error).message });
+            res.status(500).json({ message: "Falha ao recuperar pagamentos", error: (error as Error).message });
         }
     }
 
@@ -45,10 +45,10 @@ export class PaymentController {
             if (updatedPayment) {
                 res.status(200).json(updatedPayment);
             } else {
-                res.status(404).json({ message: "Payment not found" });
+                res.status(404).json({ message: "Pagamento não encontrado" });
             }
         } catch (error) {
-            res.status(500).json({ message: "Failed to update payment", error: (error as Error).message });
+            res.status(500).json({ message: "Falha ao atualizar o pagamento", error: (error as Error).message });
         }
     }
 
@@ -57,7 +57,7 @@ export class PaymentController {
             await this.paymentService.deletePayment(Number(req.params.id));
             res.status(204).send();
         } catch (error) {
-            res.status(500).json({ message: "Failed to delete payment", error: (error as Error).message });
+            res.status(500).json({ message: "Falha ao deletar o pagamento", error: (error as Error).message });
         }
     }
 }

@@ -57,7 +57,7 @@ export function initializeContract(sequelize: Sequelize) {
         allowNull: false,
       },
       status: {
-        type: DataTypes.STRING(11), 
+        type: DataTypes.STRING(11),
         allowNull: false,
       },
     },

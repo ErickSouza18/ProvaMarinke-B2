@@ -1,6 +1,7 @@
 import { Contract, ContractCreationAttributes } from "../models/contract-models.js";
 import { Profile } from "../models/profile-models.js";
 import { ContractRepository } from "../repositories/contract-repository.js";
+import { Op } from "sequelize";
 
 export class ContractService {
     private contractRepository: ContractRepository;
@@ -69,21 +70,38 @@ export class ContractService {
         }
     }
 
-    public async getContractsByProfile(profileId: number): Promise<Contract[]> {
+    // Método para buscar contratos de um perfil
+    public async getContractsByProfile(profileId: number): Promise<any> {
         try {
-            const clientContracts = await this.contractRepository.findAll({
-                where: { clientId: profileId },
-                include: [{ model: Profile, as: "client" }]
+            const profile = await Profile.findByPk(profileId, {
+                attributes: ["id", "firstName"] 
             });
-
-            const contractorContracts = await this.contractRepository.findAll({
-                where: { clientId: profileId },
-                include: [{ model: Profile, as: "contractor" }]
+    
+            if (!profile) {
+                throw new Error(`Profile com ID ${profileId} não encontrado.`);
+            }
+    
+            const contracts = await Contract.findAll({
+                where: {
+                    [Op.or]: [
+                        { clientId: profileId },    
+                        { contractorId: profileId } 
+                    ]
+                },
+                attributes: ["id", "terms", "clientId", "contractorId", "operationDate", "status"] 
             });
-
-            return [...clientContracts, ...contractorContracts];
+    
+            return {
+                profile: {
+                    id: profile.id,
+                    firstName: profile.firstName
+                },
+                contracts
+            };
         } catch (error) {
-            throw new Error(`Falha ao recuperar os contratos para o Profile de ID ${profileId}: ${error}`);
+            throw new Error(`Falha ao recuperar contratos para o Profile de ID ${profileId}: ${error}`);
         }
     }
+    
+    
 }

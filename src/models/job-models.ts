@@ -1,4 +1,5 @@
-import { Model, DataTypes, Sequelize, Optional } from "sequelize";
+import { Model, DataTypes, Sequelize, Optional, Association } from "sequelize";
+import { Payment } from "./Payment-models.js";
 
 export interface JobAttributes {
   id: number;
@@ -20,6 +21,13 @@ export class Job extends Model<JobAttributes, JobCreationAttributes> implements 
   public paymentDate!: Date | null;
   public price!: number;
   public paid!: boolean;
+
+  // Associação com pagamentos
+  public payments?: Payment[];
+
+  public static associations: {
+    payments: Association<Job, Payment>;
+  };
 }
 
 export function initializeJob(sequelize: Sequelize) {
